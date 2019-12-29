@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.PersonMapper">
+  <resultMap id="BaseResultMap" type="com.pojo.Person">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="userName" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="nickName" jdbcType="VARCHAR" property="nickname" />
+    <result column="userType" jdbcType="TINYINT" property="usertype" />
+  </resultMap>
+  <select id="checkUsername" parameterType="java.lang.String" resultType="java.lang.Integer">
+    select count(1) from person
+    where userName = #{username}
+  </select>
+  <select id="login" parameterType="map" resultType="com.pojo.Person">
+    select * from person
+    where userName = #{username}
+    and password = #{password}
+  </select>
+</mapper>

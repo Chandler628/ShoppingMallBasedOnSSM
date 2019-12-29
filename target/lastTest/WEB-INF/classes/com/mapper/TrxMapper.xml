@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.TrxMapper">
+  <resultMap id="BaseResultMap" type="com.pojo.Trx">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="contentId" jdbcType="INTEGER" property="contentid" />
+    <result column="personId" jdbcType="INTEGER" property="personid" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="time" jdbcType="BIGINT" property="time" />
+  </resultMap>
+</mapper>

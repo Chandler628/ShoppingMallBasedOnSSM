@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.ContentMapper">
+  <resultMap id="BaseResultMap" type="com.pojo.Content">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="summary" jdbcType="VARCHAR" property="summary" />
+    <result column="image" jdbcType="VARCHAR" property="image"/>
+    <result column="detail" jdbcType="VARCHAR" property="detail"/>
+  </resultMap>
+  <delete id="delete" parameterType="java.lang.Integer">
+    delete from content
+    where id = #{id}
+  </delete>
+  <select id="selectById" parameterType="java.lang.Integer" resultType="com.pojo.Content">
+    select * from content
+    where id = #{id}
+  </select>
+  <select id="getContentList" resultType="com.pojo.Content">
+  select c.* ,(select count(*) from trx t where t.contentId = c.id) as trxCount from content c
+  </select>
+  <select id="getProduct" resultType="com.pojo.Content" parameterType="java.lang.Integer">
+  SELECT c.*, (SELECT COUNT(*) FROM trx t WHERE t.contentId=c.id) AS trxCount FROM content c WHERE c.id=#{id}
+  </select>
+  <select id="account" resultType="com.pojo.Content">
+    select c.id,c.title,c.image,(select t.price from trx t where t.contentId = c.id) as buyPrice,
+    (select t.time from trx t where t.contentid = c.id) as buyTime  from content c,trx t where c.id = t.contentId
+  </select>
+  <select id="lastInsertId" resultType="java.lang.Integer">
+    select max(id) from content
+  </select>
+  <select id="count" resultType="java.lang.Integer">
+    select count(1) as acount from person
+  </select>
+</mapper>
